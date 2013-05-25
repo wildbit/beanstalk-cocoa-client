@@ -10,9 +10,9 @@
 #import <UIKit/UIColor.h>
 
 typedef enum BSRepositoryType : NSUInteger {
-    GitRepository,
-    MercurialRepository,
-    SubversionRepository
+    GitRepository = 1,
+    MercurialRepository = 2,
+    SubversionRepository = 3
 } BSRepositoryType;
 
 @interface BSRepository : BSObject

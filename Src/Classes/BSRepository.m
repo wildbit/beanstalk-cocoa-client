@@ -24,6 +24,16 @@
 
         self.url = [[NSURL alloc] initWithString:dict[@"repository_url"]];
         
+        NSString *vcs = dict[@"vcs"];
+
+        if ([@"mercurial" isEqualToString:vcs]) {
+            self.type = MercurialRepository;
+        } else if ([@"subversion" isEqualToString:vcs]) {
+            self.type = SubversionRepository;
+        } else if ([@"git" isEqualToString:vcs]) {
+            self.type = GitRepository;
+        }
+
         if (dict[@"created_at"] != [NSNull null]) {
             self.createdAt = [[self railsDateFormat] dateFromString:dict[@"created_at"]];
         }

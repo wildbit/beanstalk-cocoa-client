@@ -35,6 +35,7 @@
             STAssertNotNil(repo.name,      @"name was nil");
             STAssertNotNil(repo.title,     @"title was nil");
             STAssertNotNil(repo.url,       @"url was nil");
+            STAssertTrue(repo.type > 0, @"type wasn't sety");
             STAssertNotNil(repo.createdAt, @"createdAt was nil");
             STAssertNotNil(repo.updatedAt, @"updatedAt was nil");
         }
@@ -59,7 +60,7 @@
             STAssertNotNil(user.firstName, @"firstName was nil");
             STAssertNotNil(user.lastName,  @"lastName was nil");
             STAssertNotNil(user.email,     @"email was nil");
-            STAssertTrue(user.accountID > 0, @"accountID was nil");
+            STAssertTrue(user.accountID > 0, @"accountID wasn't set");
             STAssertNotNil(user.createdAt, @"createdAt was nil");
             STAssertNotNil(user.updatedAt, @"updatedAt was nil");
         }
