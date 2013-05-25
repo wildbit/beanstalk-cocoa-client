@@ -9,8 +9,8 @@
 #import "BeanstalkCocoaClient.h"
 #import "AFNetworking.h"
 
-#define WB_HOST     @"http://%@.beanstalkapp.com/api"
-#define WB_FORMAT   @"json"
+#define WB_HOST      @"https://%@.beanstalkapp.com/api"
+#define WB_FORMAT    @"json"
 
 @implementation BeanstalkCocoaClient
 
@@ -47,21 +47,35 @@
 
 #pragma mark - API
 
-- (void)users:(void (^)(NSArray *users, NSError *error))block
+- (void)fetchUsers:(void (^)(NSArray *users, NSError *error))block
 {
-    [self getPath:@"users.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSMutableArray *mutableUsers = [NSMutableArray arrayWithCapacity:[JSON count]];
+    NSString *endpoint = [[NSString alloc] initWithFormat:@"%@.%@", @"users", WB_FORMAT];
+    [self fetch:[BSUser class] atResource:@"user" atEndpoint:endpoint withBlock:block];
+}
 
-        for (NSDictionary *rawUser in JSON) {
-            NSDictionary *userAttrs = rawUser[@"user"];
-            BSUser *user = [[BSUser alloc] initWithDictionary:userAttrs];
-            [mutableUsers addObject:user];
+- (void)fetchRepositories:(void (^)(NSArray *repositories, NSError *error))block
+{
+    NSString *endpoint = [[NSString alloc] initWithFormat:@"%@.%@", @"repositories", WB_FORMAT];
+    [self fetch:[BSRepository class] atResource:@"repository" atEndpoint:endpoint withBlock:block];
+}
+
+#pragma mark - Private
+
+- (void)fetch:(Class)bsKlass atResource:(NSString*)resource atEndpoint:(NSString*)endpoint withBlock:(void (^)(NSArray *, NSError *))block
+{
+    [self getPath:endpoint parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+    
+        NSMutableArray *mutableResources = [NSMutableArray arrayWithCapacity:[JSON count]];
+        for (NSDictionary *rawResource in JSON) {
+            NSDictionary *rawAttrs = rawResource[resource];
+            id resourceInstance = [[bsKlass alloc] initWithDictionary:rawAttrs];
+            [mutableResources addObject:resourceInstance];
         }
-
+        
         if (block) {
-            block([NSArray arrayWithArray:mutableUsers], nil);
+            block([NSArray arrayWithArray:mutableResources], nil);
         }
-
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
             block(nil, error);

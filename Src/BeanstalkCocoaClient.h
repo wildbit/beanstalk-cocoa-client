@@ -8,15 +8,13 @@
 
 #import "AFHTTPClient.h"
 #import "BSUser.h"
+#import "BSRepository.h"
 
 @interface BeanstalkCocoaClient : AFHTTPClient
 
-@property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSString *password;
-@property (nonatomic, copy, readonly) NSError *lastKnownError;
-
 + (BeanstalkCocoaClient*)sharedClient:(NSString*)subdomain;
 
-- (void)users:(void (^)(NSArray *users, NSError *error))block;
+- (void)fetchUsers:(void (^)(NSArray *users, NSError *error))block;
+- (void)fetchRepositories:(void (^)(NSArray *repositories, NSError *error))block;
 
 @end

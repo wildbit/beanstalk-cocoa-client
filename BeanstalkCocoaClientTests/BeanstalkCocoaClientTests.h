@@ -11,4 +11,6 @@
 
 @interface BeanstalkCocoaClientTests : SenTestCase
 
+@property (nonatomic, strong) BeanstalkCocoaClient *client;
+
 @end

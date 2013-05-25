@@ -1,0 +1,5 @@
+[
+  "-project", "BeanstalkCocoaClient.xcodeproj",
+  "-scheme",  "BeanstalkCocoaClient",
+  "-arch",    "armv7"
+]

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		7AE378154414480F99CE7638 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B9A1E5C83E24E618C8B0171 /* libPods.a */; };
+		83567A5217505FE600E08054 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83567A5117505FE600E08054 /* MobileCoreServices.framework */; };
+		83567A5317505FF300E08054 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83567A5117505FE600E08054 /* MobileCoreServices.framework */; };
+		83567A5E1750700800E08054 /* BSAuth.h.example in Resources */ = {isa = PBXBuildFile; fileRef = 83567A5D1750700800E08054 /* BSAuth.h.example */; };
+		837D15301750020F00760EFE /* BSRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 837D152F1750020F00760EFE /* BSRepository.m */; };
+		837D15311750020F00760EFE /* BSRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 837D152F1750020F00760EFE /* BSRepository.m */; };
 		83B7933A17483CE3002B5077 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B7930317483CE3002B5077 /* AFHTTPClient.m */; };
 		83B7933B17483CE3002B5077 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B7930317483CE3002B5077 /* AFHTTPClient.m */; };
 		83B7933C17483CE3002B5077 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B7930517483CE3002B5077 /* AFHTTPRequestOperation.m */; };
@@ -86,6 +91,10 @@
 /* Begin PBXFileReference section */
 		2B9A1E5C83E24E618C8B0171 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFBD558885C4D888E2E2842 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		83567A5117505FE600E08054 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		83567A5D1750700800E08054 /* BSAuth.h.example */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BSAuth.h.example; sourceTree = "<group>"; };
+		837D152E1750020F00760EFE /* BSRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSRepository.h; path = Classes/BSRepository.h; sourceTree = "<group>"; };
+		837D152F1750020F00760EFE /* BSRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSRepository.m; path = Classes/BSRepository.m; sourceTree = "<group>"; };
 		83B7930217483CE3002B5077 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		83B7930317483CE3002B5077 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		83B7930417483CE3002B5077 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -166,6 +175,7 @@
 				7AE378154414480F99CE7638 /* libPods.a in Frameworks */,
 				83D670D5174839A100A1E52D /* Foundation.framework in Frameworks */,
 				EA44EA3E174C82A1006BC1B0 /* SystemConfiguration.framework in Frameworks */,
+				83567A5317505FF300E08054 /* MobileCoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83567A5217505FE600E08054 /* MobileCoreServices.framework in Frameworks */,
 				EA44EA3F174C82AE006BC1B0 /* SystemConfiguration.framework in Frameworks */,
 				83D670E4174839A100A1E52D /* SenTestingKit.framework in Frameworks */,
 				83D670E6174839A100A1E52D /* UIKit.framework in Frameworks */,
@@ -184,6 +195,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		837D15331750071F00760EFE /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
 		83B792FF17483CE3002B5077 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +322,8 @@
 				EA44EA30174C3AAD006BC1B0 /* BSObject.m */,
 				83B7935D17485B06002B5077 /* BSUser.h */,
 				83B7935E17485B06002B5077 /* BSUser.m */,
+				837D152E1750020F00760EFE /* BSRepository.h */,
+				837D152F1750020F00760EFE /* BSRepository.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -313,6 +333,7 @@
 			children = (
 				83D670FC17483ABB00A1E52D /* Src */,
 				83D670EB174839A100A1E52D /* BeanstalkCocoaClientTests */,
+				837D15331750071F00760EFE /* Vendor */,
 				83D670D3174839A100A1E52D /* Frameworks */,
 				83B792FF17483CE3002B5077 /* Pods */,
 				83D670D2174839A100A1E52D /* Products */,
@@ -334,6 +355,7 @@
 		83D670D3174839A100A1E52D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83567A5117505FE600E08054 /* MobileCoreServices.framework */,
 				EA44EA3D174C82A1006BC1B0 /* SystemConfiguration.framework */,
 				83D670D4174839A100A1E52D /* Foundation.framework */,
 				83D670E3174839A100A1E52D /* SenTestingKit.framework */,
@@ -347,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				EA44EA3C174C5EEA006BC1B0 /* BSAuth.h */,
+				83567A5D1750700800E08054 /* BSAuth.h.example */,
 				83D670F1174839A100A1E52D /* BeanstalkCocoaClientTests.h */,
 				83D670F2174839A100A1E52D /* BeanstalkCocoaClientTests.m */,
 				83D670EC174839A100A1E52D /* Supporting Files */,
@@ -474,6 +497,7 @@
 				83B7935417483CE3002B5077 /* Pods.xcconfig in Resources */,
 				83B7935A17483CF7002B5077 /* Podfile in Resources */,
 				83B7935B17483CF7002B5077 /* Podfile.lock in Resources */,
+				83567A5E1750700800E08054 /* BSAuth.h.example in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +565,7 @@
 				83B7935117483CE3002B5077 /* Pods-dummy.m in Sources */,
 				83B7935F17485B06002B5077 /* BSUser.m in Sources */,
 				EA44EA31174C3AAD006BC1B0 /* BSObject.m in Sources */,
+				837D15301750020F00760EFE /* BSRepository.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +587,7 @@
 				83B7935217483CE3002B5077 /* Pods-dummy.m in Sources */,
 				83B7936017485B06002B5077 /* BSUser.m in Sources */,
 				EA44EA32174C3AAD006BC1B0 /* BSObject.m in Sources */,
+				837D15311750020F00760EFE /* BSRepository.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
