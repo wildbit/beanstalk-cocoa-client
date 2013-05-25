@@ -20,7 +20,6 @@ typedef enum BSRepositoryType : NSUInteger {
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) NSUInteger storageUsedInBytes;
-@property (nonatomic, assign) NSUInteger accountID;
 @property (nonatomic, assign) BSRepositoryType type;
 @property (nonatomic, copy) UIColor *colorLabel;
 @property (nonatomic, copy) NSString *defaultBranch;

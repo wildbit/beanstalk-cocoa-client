@@ -11,6 +11,12 @@
 		83567A5217505FE600E08054 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83567A5117505FE600E08054 /* MobileCoreServices.framework */; };
 		83567A5317505FF300E08054 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83567A5117505FE600E08054 /* MobileCoreServices.framework */; };
 		83567A5E1750700800E08054 /* BSAuth.h.example in Resources */ = {isa = PBXBuildFile; fileRef = 83567A5D1750700800E08054 /* BSAuth.h.example */; };
+		83567A61175078A600E08054 /* BSServerEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 83567A60175078A600E08054 /* BSServerEnvironment.m */; };
+		83567A62175078A600E08054 /* BSServerEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 83567A60175078A600E08054 /* BSServerEnvironment.m */; };
+		83567A6517507FEB00E08054 /* BSColorDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 83567A6417507FEB00E08054 /* BSColorDetector.m */; };
+		83567A6617507FEB00E08054 /* BSColorDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 83567A6417507FEB00E08054 /* BSColorDetector.m */; };
+		83567A6A175080E600E08054 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 83567A69175080E600E08054 /* UIColor+Hex.m */; };
+		83567A6B175080E600E08054 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 83567A69175080E600E08054 /* UIColor+Hex.m */; };
 		837D15301750020F00760EFE /* BSRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 837D152F1750020F00760EFE /* BSRepository.m */; };
 		837D15311750020F00760EFE /* BSRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 837D152F1750020F00760EFE /* BSRepository.m */; };
 		83B7933A17483CE3002B5077 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B7930317483CE3002B5077 /* AFHTTPClient.m */; };
@@ -93,6 +99,12 @@
 		7BFBD558885C4D888E2E2842 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		83567A5117505FE600E08054 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		83567A5D1750700800E08054 /* BSAuth.h.example */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BSAuth.h.example; sourceTree = "<group>"; };
+		83567A5F175078A600E08054 /* BSServerEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSServerEnvironment.h; path = Classes/BSServerEnvironment.h; sourceTree = "<group>"; };
+		83567A60175078A600E08054 /* BSServerEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSServerEnvironment.m; path = Classes/BSServerEnvironment.m; sourceTree = "<group>"; };
+		83567A6317507FEA00E08054 /* BSColorDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSColorDetector.h; path = Classes/BSColorDetector.h; sourceTree = "<group>"; };
+		83567A6417507FEB00E08054 /* BSColorDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSColorDetector.m; path = Classes/BSColorDetector.m; sourceTree = "<group>"; };
+		83567A68175080E600E08054 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Hex.h"; path = "Categories/UIColor+Hex.h"; sourceTree = "<group>"; };
+		83567A69175080E600E08054 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Hex.m"; path = "Categories/UIColor+Hex.m"; sourceTree = "<group>"; };
 		837D152E1750020F00760EFE /* BSRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSRepository.h; path = Classes/BSRepository.h; sourceTree = "<group>"; };
 		837D152F1750020F00760EFE /* BSRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSRepository.m; path = Classes/BSRepository.m; sourceTree = "<group>"; };
 		83B7930217483CE3002B5077 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
@@ -195,6 +207,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		83567A67175080CF00E08054 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				83567A68175080E600E08054 /* UIColor+Hex.h */,
+				83567A69175080E600E08054 /* UIColor+Hex.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		837D15331750071F00760EFE /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +345,8 @@
 				83B7935E17485B06002B5077 /* BSUser.m */,
 				837D152E1750020F00760EFE /* BSRepository.h */,
 				837D152F1750020F00760EFE /* BSRepository.m */,
+				83567A5F175078A600E08054 /* BSServerEnvironment.h */,
+				83567A60175078A600E08054 /* BSServerEnvironment.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -390,7 +413,10 @@
 		83D670FC17483ABB00A1E52D /* Src */ = {
 			isa = PBXGroup;
 			children = (
+				83567A67175080CF00E08054 /* Categories */,
 				83B7935C17485AE0002B5077 /* Models */,
+				83567A6317507FEA00E08054 /* BSColorDetector.h */,
+				83567A6417507FEB00E08054 /* BSColorDetector.m */,
 				83D670FE17483ABB00A1E52D /* BeanstalkCocoaClient.h */,
 				83D670FF17483ABB00A1E52D /* BeanstalkCocoaClient.m */,
 			);
@@ -566,6 +592,9 @@
 				83B7935F17485B06002B5077 /* BSUser.m in Sources */,
 				EA44EA31174C3AAD006BC1B0 /* BSObject.m in Sources */,
 				837D15301750020F00760EFE /* BSRepository.m in Sources */,
+				83567A61175078A600E08054 /* BSServerEnvironment.m in Sources */,
+				83567A6517507FEB00E08054 /* BSColorDetector.m in Sources */,
+				83567A6A175080E600E08054 /* UIColor+Hex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +617,9 @@
 				83B7936017485B06002B5077 /* BSUser.m in Sources */,
 				EA44EA32174C3AAD006BC1B0 /* BSObject.m in Sources */,
 				837D15311750020F00760EFE /* BSRepository.m in Sources */,
+				83567A62175078A600E08054 /* BSServerEnvironment.m in Sources */,
+				83567A6617507FEB00E08054 /* BSColorDetector.m in Sources */,
+				83567A6B175080E600E08054 /* UIColor+Hex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,12 +9,16 @@
 #import "AFHTTPClient.h"
 #import "BSUser.h"
 #import "BSRepository.h"
+#import "BSServerEnvironment.h"
+
+typedef void (^fetchBlock)(NSArray*, NSError*);
 
 @interface BeanstalkCocoaClient : AFHTTPClient
 
 + (BeanstalkCocoaClient*)sharedClient:(NSString*)subdomain;
 
-- (void)fetchUsers:(void (^)(NSArray *users, NSError *error))block;
-- (void)fetchRepositories:(void (^)(NSArray *repositories, NSError *error))block;
+- (void)fetchUsers:(fetchBlock)block;
+- (void)fetchRepositories:(fetchBlock)block;
+- (void)fetchServerEnvironmentsForRepository:(BSRepository*)repo withBlock:(fetchBlock)block;
 
 @end

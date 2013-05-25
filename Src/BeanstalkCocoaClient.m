@@ -47,27 +47,31 @@
 
 #pragma mark - API
 
-- (void)fetchUsers:(void (^)(NSArray *users, NSError *error))block
+- (void)fetchUsers:(fetchBlock)block
 {
-    NSString *endpoint = [[NSString alloc] initWithFormat:@"%@.%@", @"users", WB_FORMAT];
-    [self fetch:[BSUser class] atResource:@"user" atEndpoint:endpoint withBlock:block];
+    [self fetch:[BSUser class] atEndpoint:@"users.json" withParameters:nil withBlock:block];
 }
 
-- (void)fetchRepositories:(void (^)(NSArray *repositories, NSError *error))block
+- (void)fetchRepositories:(fetchBlock)block
 {
-    NSString *endpoint = [[NSString alloc] initWithFormat:@"%@.%@", @"repositories", WB_FORMAT];
-    [self fetch:[BSRepository class] atResource:@"repository" atEndpoint:endpoint withBlock:block];
+    [self fetch:[BSRepository class] atEndpoint:@"repositories.json" withParameters:nil withBlock:block];
+}
+
+- (void)fetchServerEnvironmentsForRepository:(BSRepository*)repo withBlock:(fetchBlock)block
+{
+    NSString *endpoint = [[NSString alloc] initWithFormat:@"%d/server_environments.json", repo.objectID];
+    [self fetch:[BSServerEnvironment class] atEndpoint:endpoint withParameters:nil withBlock:block];
 }
 
 #pragma mark - Private
 
-- (void)fetch:(Class)bsKlass atResource:(NSString*)resource atEndpoint:(NSString*)endpoint withBlock:(void (^)(NSArray *, NSError *))block
+- (void)fetch:(Class)bsKlass atEndpoint:(NSString*)endpoint withParameters:(NSDictionary*)params withBlock:(fetchBlock)block
 {
-    [self getPath:endpoint parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [self getPath:endpoint parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
     
         NSMutableArray *mutableResources = [NSMutableArray arrayWithCapacity:[JSON count]];
         for (NSDictionary *rawResource in JSON) {
-            NSDictionary *rawAttrs = rawResource[resource];
+            NSDictionary *rawAttrs = rawResource[[bsKlass toString]];
             id resourceInstance = [[bsKlass alloc] initWithDictionary:rawAttrs];
             [mutableResources addObject:resourceInstance];
         }

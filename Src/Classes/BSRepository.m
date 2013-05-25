@@ -7,6 +7,7 @@
 //
 
 #import "BSRepository.h"
+#import "BSColorDetector.h"
 
 @implementation BSRepository
 
@@ -34,6 +35,8 @@
             self.type = GitRepository;
         }
 
+        self.colorLabel = [BSColorDetector colorFromLabel:dict[@"color_label"]];
+        
         if (dict[@"created_at"] != [NSNull null]) {
             self.createdAt = [[self railsDateFormat] dateFromString:dict[@"created_at"]];
         }
@@ -54,6 +57,11 @@
 {
     return [[NSString alloc] initWithFormat:@"<%@#%d, name: '%@', created_at: '%@', updated_at: '%@'",
             [self class], self.objectID, self.name, self.createdAt, self.updatedAt];
+}
+
++ (NSString*)toString
+{
+    return @"repository";
 }
 
 @end

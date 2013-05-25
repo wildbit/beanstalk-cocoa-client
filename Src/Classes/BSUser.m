@@ -56,4 +56,9 @@
             self.objectID, self.accountID, self.login, self.name, self.email, self.isAdmin ? @"Yes": @"No"];
 }
 
++ (NSString*)toString
+{
+    return @"user";
+}
+
 @end

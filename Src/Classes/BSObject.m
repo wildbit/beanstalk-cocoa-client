@@ -10,6 +10,11 @@
 
 @implementation BSObject
 
++ (NSString*)toString
+{
+    return @"bs_object";
+}
+
 - (NSDateFormatter*)railsDateFormat
 {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];

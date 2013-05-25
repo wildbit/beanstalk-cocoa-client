@@ -10,10 +10,12 @@
 
 @interface BSObject : NSObject
 
-@property (nonatomic, assign) NSInteger objectID;
+@property (nonatomic, assign) NSUInteger objectID;
+@property (nonatomic, assign) NSUInteger accountID;
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, strong) NSDate *updatedAt;
 
++ (NSString*)toString;
 - (NSDateFormatter*)railsDateFormat;
 
 @end

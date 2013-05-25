@@ -10,8 +10,6 @@
 
 @interface BSUser : BSObject
 
-@property (nonatomic, assign) NSInteger accountID;
-
 @property (nonatomic, assign) BOOL isAdmin;
 @property (nonatomic, assign) BOOL isOwner;
 @property (nonatomic, strong) NSString *firstName;
