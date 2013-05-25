@@ -9,64 +9,61 @@
 #import "BSColorDetector.h"
 #import "UIColor+Hex.h"
 
+#define kBSDefaultColor [UIColor whiteColor]
+
+@interface BSColorDetector()
+
+@property (nonatomic, strong) NSDictionary* colorLabelLookup;
+
+@end
+
 @implementation BSColorDetector
 
-+ (UIColor*)colorFromLabel:(NSString*)colorLabelName
-{   
-    if ([@"label-pink" isEqualToString:colorLabelName]) {
-        return [UIColor colorWithHexString:@"FDA7CC"];
+- (id)init
+{
+    self = [super init];
+    
+    if (self) {
+        self.colorLabelLookup = [self colorLabelLookup];
     }
-    else if ([@"label-red" isEqualToString:colorLabelName]) {
-        return [UIColor redColor];
+    
+    return self;
+}
+
+- (UIColor*)colorFromLabel:(NSString*)colorLabelName
+{
+    UIColor *matchingColor = self.colorLabelLookup[colorLabelName];
+    
+    if (!matchingColor) {
+        matchingColor = kBSDefaultColor;
     }
-    else if ([@"label-red-orange" isEqualToString:colorLabelName]) {
-        return [UIColor colorWithHexString:@"ff7733"];
-    }
-    else if ([@"label-orange" isEqualToString:colorLabelName]) {
-        return [UIColor orangeColor];
-    }
-    else if ([@"label-yellow" isEqualToString:colorLabelName]) {
-        return [UIColor yellowColor];
-    }
-    else if ([@"label-yellow-green" isEqualToString:colorLabelName]) {
-        return [UIColor colorWithHexString:@"57D200"];
-    }
-    else if ([@"label-aqua-green" isEqualToString:colorLabelName]) {
-        return [UIColor colorWithHexString:@"73E5AC"];
-    }
-    else if ([@"label-green" isEqualToString:colorLabelName]) {
-        return [UIColor greenColor];
-    }
-    else if ([@"label-green-blue" isEqualToString:colorLabelName]) {
-        return [UIColor colorWithHexString:@"7fbfbf"];
-    }
-    else if ([@"label-sky-blue" isEqualToString:colorLabelName]) {
-        return [UIColor colorWithHexString:@"66e6ff"];
-    }
-    else if ([@"label-light-blue" isEqualToString:colorLabelName]) {
-        return [UIColor colorWithHexString:@"99d5ff"];
-    }
-    else if ([@"label-blue" isEqualToString:colorLabelName]) {
-        return [UIColor blueColor];
-    }
-    else if ([@"label-orchid" isEqualToString:colorLabelName]) {
-        return [UIColor colorWithHexString:@"e493fd"];
-    }
-    else if ([@"label-violet" isEqualToString:colorLabelName]) {
-        return [UIColor colorWithHexString:@"bf87be"];
-    }
-    else if ([@"label-brown" isEqualToString:colorLabelName]) {
-        return [UIColor brownColor];
-    }
-    else if ([@"label-black" isEqualToString:colorLabelName]) {
-        return [UIColor blueColor];
-    }
-    else if ([@"label-grey" isEqualToString:colorLabelName]) {
-        return [UIColor grayColor];
-    }
-    else {
-        return [UIColor whiteColor];   
-    }
+    
+    return matchingColor;
+}
+
+#pragma mark - Private
+
+- (NSDictionary*)colorLabelLookup
+{
+    return @{
+             @"label-pink":         [UIColor colorWithHexString:@"FDA7CC"],
+             @"label-red":          [UIColor redColor],
+             @"label-red-orange":   [UIColor colorWithHexString:@"ff7733"],
+             @"label-orange":       [UIColor orangeColor],
+             @"label-yellow":       [UIColor yellowColor],
+             @"label-yellow-green": [UIColor colorWithHexString:@"57D200"],
+             @"label-aqua-green":   [UIColor colorWithHexString:@"73E5AC"],
+             @"label-green":        [UIColor greenColor],
+             @"label-green-blue":   [UIColor colorWithHexString:@"7fbfbf"],
+             @"label-sky-blue":     [UIColor colorWithHexString:@"66e6ff"],
+             @"label-light-blue":   [UIColor colorWithHexString:@"99d5ff"],
+             @"label-blue":         [UIColor blueColor],
+             @"label-orchid":       [UIColor colorWithHexString:@"e493fd"],
+             @"label-violet":       [UIColor colorWithHexString:@"bf87be"],
+             @"label-brown":        [UIColor brownColor],
+             @"label-black":        [UIColor blackColor],
+             @"label-grey":         [UIColor grayColor],
+             };
 }
 
 @end

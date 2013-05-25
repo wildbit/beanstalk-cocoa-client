@@ -10,6 +10,6 @@
 
 @interface BSColorDetector : NSObject
 
-+ (UIColor*)colorFromLabel:(NSString*)colorLabelName;
+- (UIColor*)colorFromLabel:(NSString*)colorLabelName;
 
 @end

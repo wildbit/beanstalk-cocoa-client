@@ -35,7 +35,8 @@
             self.type = GitRepository;
         }
 
-        self.colorLabel = [BSColorDetector colorFromLabel:dict[@"color_label"]];
+        BSColorDetector *colorDetector = [[BSColorDetector alloc] init];
+        self.colorLabel = [colorDetector colorFromLabel:dict[@"color_label"]];
         
         if (dict[@"created_at"] != [NSNull null]) {
             self.createdAt = [[self railsDateFormat] dateFromString:dict[@"created_at"]];
