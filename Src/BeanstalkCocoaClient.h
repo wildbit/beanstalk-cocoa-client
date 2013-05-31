@@ -10,6 +10,7 @@
 #import "BSUser.h"
 #import "BSRepository.h"
 #import "BSServerEnvironment.h"
+#import "BSRelease.h"
 
 typedef void (^fetchBlock)(NSArray*, NSError*);
 
@@ -17,8 +18,10 @@ typedef void (^fetchBlock)(NSArray*, NSError*);
 
 + (BeanstalkCocoaClient*)sharedClient:(NSString*)subdomain;
 
-- (void)fetchUsers:(fetchBlock)block;
-- (void)fetchRepositories:(fetchBlock)block;
-- (void)fetchServerEnvironmentsForRepository:(BSRepository*)repo withBlock:(fetchBlock)block;
+- (void)fetchUsersAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block;
+- (void)fetchRepositoriesAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block;
+- (void)fetchServerEnvironmentsForRepository:(BSRepository*)repo page:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block;
+- (void)fetchReleasesAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block;
+- (void)fetchReleasesForRepisotry:(BSRepository*)repo AtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block;
 
 @end

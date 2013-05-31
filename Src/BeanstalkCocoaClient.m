@@ -9,8 +9,10 @@
 #import "BeanstalkCocoaClient.h"
 #import "AFNetworking.h"
 
-#define WB_HOST      @"https://%@.beanstalkapp.com/api"
-#define WB_FORMAT    @"json"
+#define WB_HOST             @"http://%@.beanstalk.dev/api"
+#define WB_FORMAT           @"json"
+#define WB_DEFAULT_PAGE     1
+#define WB_DEFAULT_PER_PAGE 20
 
 @implementation BeanstalkCocoaClient
 
@@ -47,20 +49,36 @@
 
 #pragma mark - API
 
-- (void)fetchUsers:(fetchBlock)block
+- (void)fetchUsersAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block
 {
-    [self fetch:[BSUser class] atEndpoint:@"users.json" withParameters:nil withBlock:block];
+    NSDictionary *params = [self generatePaginationParametersForPage:page andPerPage:perPage];
+    [self fetch:[BSUser class] atEndpoint:@"users.json" withParameters:params withBlock:block];
 }
 
-- (void)fetchRepositories:(fetchBlock)block
+- (void)fetchRepositoriesAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block
 {
-    [self fetch:[BSRepository class] atEndpoint:@"repositories.json" withParameters:nil withBlock:block];
+    NSDictionary *params = [self generatePaginationParametersForPage:page andPerPage:perPage];
+    [self fetch:[BSRepository class] atEndpoint:@"repositories.json" withParameters:params withBlock:block];
 }
 
-- (void)fetchServerEnvironmentsForRepository:(BSRepository*)repo withBlock:(fetchBlock)block
+- (void)fetchServerEnvironmentsForRepository:(BSRepository*)repo page:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block
 {
+    NSDictionary *params = [self generatePaginationParametersForPage:page andPerPage:perPage];
     NSString *endpoint = [[NSString alloc] initWithFormat:@"%d/server_environments.json", repo.objectID];
-    [self fetch:[BSServerEnvironment class] atEndpoint:endpoint withParameters:nil withBlock:block];
+    [self fetch:[BSServerEnvironment class] atEndpoint:endpoint withParameters:params withBlock:block];
+}
+
+- (void)fetchReleasesAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block
+{
+    NSDictionary *params = [self generatePaginationParametersForPage:page andPerPage:perPage];
+    [self fetch:[BSRelease class] atEndpoint:@"releases.json" withParameters:params withBlock:block];
+}
+
+- (void)fetchReleasesForRepisotry:(BSRepository*)repo AtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block
+{
+    NSDictionary *params = [self generatePaginationParametersForPage:page andPerPage:perPage];
+    NSString *endpoint = [[NSString alloc] initWithFormat:@"%d/releases.json", repo.objectID];
+    [self fetch:[BSRelease class] atEndpoint:endpoint withParameters:params withBlock:block];
 }
 
 #pragma mark - Private
@@ -85,6 +103,17 @@
             block(nil, error);
         }
     }];
+}
+
+- (NSDictionary*)generatePaginationParametersForPage:(NSUInteger)page andPerPage:(NSUInteger)perPage
+{
+    if (page < 1)
+        page = WB_DEFAULT_PAGE;
+    
+    if (perPage < 1)
+        perPage = WB_DEFAULT_PER_PAGE;
+
+    return @{@"page": [NSNumber numberWithUnsignedInteger:page], @"per_page": [NSNumber numberWithUnsignedInteger:perPage]};
 }
 
 @end

@@ -29,7 +29,7 @@
 {
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [self.client fetchRepositories:^(NSArray *repos, NSError *error) {
+    [self.client fetchRepositoriesAtPage:1 perPage:1 withBlock:^(NSArray *repos, NSError *error) {
         STAssertNil(error, @"Error occurred: %@", error);
 
         for (BSRepository *repo in repos) {
@@ -55,7 +55,7 @@
 {
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [self.client fetchUsers:^(NSArray *users, NSError *error) {
+    [self.client fetchUsersAtPage:1 perPage:1 withBlock:^(NSArray *users, NSError *error) {
         STAssertNil(error, @"Error occurred: %@", error);
         
         for (BSUser *user in users) {
@@ -77,14 +77,14 @@
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
 }
 
-- (void)testFetchServerEnvironments
+- (void)testFetchServerEnvironmentsForRepository
 {
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     BSRepository *repo = [[BSRepository alloc] init];
     repo.objectID = 27;
     
-    [self.client fetchServerEnvironmentsForRepository:repo withBlock:^(NSArray *environments, NSError *error) {
+    [self.client fetchServerEnvironmentsForRepository:repo page:1 perPage:1 withBlock:^(NSArray *environments, NSError *error) {
         STAssertNil(error, @"Error occurred: %@", error);
 
         for (BSServerEnvironment *environment in environments) {
@@ -100,6 +100,56 @@
 
         STAssertNotNil(environments, @"Returned environments array is nil");
         STAssertTrue(([environments count] > 0), @"Environments array contains entries");
+        dispatch_semaphore_signal(sema);
+    }];
+    
+    while (dispatch_semaphore_wait(sema, DISPATCH_TIME_NOW))
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+}
+
+- (void)testFetchReleases
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+    [self.client fetchReleasesAtPage:1 perPage:1 withBlock:^(NSArray *releases, NSError *error) {
+        STAssertNil(error, @"Error occurred: %@", error);
+        
+        for (BSRelease *release in releases) {
+            STAssertNotNil(release.revision, @"Revision was nil");
+            STAssertTrue(release.accountID > 0, @"accountID wasn't set");
+            STAssertNotNil(release.createdAt, @"createdAt was nil");
+            STAssertNotNil(release.updatedAt, @"updatedAt was nil");
+        }
+        
+        STAssertNotNil(releases, @"Returned releases array is nil");
+        STAssertTrue(([releases count] > 0), @"Releases array contains entries");
+        dispatch_semaphore_signal(sema);
+    }];
+    
+    while (dispatch_semaphore_wait(sema, DISPATCH_TIME_NOW))
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+}
+
+- (void)testFetchReleasesForRepository
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+    BSRepository *repo = [[BSRepository alloc] init];
+    repo.objectID = 27;
+    
+    [self.client fetchReleasesForRepisotry:repo AtPage:1 perPage:1 withBlock:^(NSArray *releases, NSError *error) {
+        STAssertNil(error, @"Error occurred: %@", error);
+        
+        for (BSRelease *release in releases) {
+            STAssertNotNil(release.revision, @"Revision was nil");
+            STAssertTrue(release.accountID > 0, @"accountID wasn't set");
+            STAssertEquals(release.repositoryID, repo.objectID, @"Repository ID didn't set");
+            STAssertNotNil(release.createdAt, @"createdAt was nil");
+            STAssertNotNil(release.updatedAt, @"updatedAt was nil");
+        }
+        
+        STAssertNotNil(releases, @"Returned releases array is nil");
+        STAssertTrue(([releases count] > 0), @"Releases array contains entries");
         dispatch_semaphore_signal(sema);
     }];
     
