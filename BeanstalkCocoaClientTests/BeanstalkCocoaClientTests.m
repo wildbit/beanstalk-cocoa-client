@@ -10,6 +10,8 @@
 #import "AFNetworking.h"
 #import "BSAuth.h"
 
+#define BSClientTestUserID 4
+
 @implementation BeanstalkCocoaClientTests
 
 - (void)setUp
@@ -153,6 +155,23 @@
         dispatch_semaphore_signal(sema);
     }];
     
+    while (dispatch_semaphore_wait(sema, DISPATCH_TIME_NOW))
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+}
+
+- (void)testFetchUser
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+
+    [self.client fetchUser:BSClientTestUserID withBlock:^(id resource, NSError *error) {
+        BSUser *user = (BSUser*)resource;
+        STAssertNil(error, @"Error fetching user occurred");
+        STAssertNotNil(user, @"User returned was nil");
+        STAssertNotNil(user.name, @"Name was blank");
+
+        dispatch_semaphore_signal(sema);
+    }];
+
     while (dispatch_semaphore_wait(sema, DISPATCH_TIME_NOW))
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
 }

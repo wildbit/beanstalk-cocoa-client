@@ -13,11 +13,13 @@
 #import "BSRelease.h"
 
 typedef void (^fetchBlock)(NSArray*, NSError*);
+typedef void (^fetchSingleEntityBlock)(id, NSError*);
 
 @interface BeanstalkCocoaClient : AFHTTPClient
 
 + (BeanstalkCocoaClient*)sharedClient:(NSString*)subdomain;
 
+- (void)fetchUser:(NSUInteger)userId withBlock:(fetchSingleEntityBlock)block;
 - (void)fetchUsersAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block;
 - (void)fetchRepositoriesAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block;
 - (void)fetchServerEnvironmentsForRepository:(BSRepository*)repo page:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block;

@@ -49,41 +49,65 @@
 
 #pragma mark - API
 
+- (void)fetchUser:(NSUInteger)userId withBlock:(fetchSingleEntityBlock)block
+{
+    NSString *endpoint = [[NSString alloc] initWithFormat:@"users/%d.json", userId];
+    [self fetchResource:[BSUser class] atEndpoint:endpoint withParams:nil withBlock:block];
+}
+
+
 - (void)fetchUsersAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block
 {
     NSDictionary *params = [self generatePaginationParametersForPage:page andPerPage:perPage];
-    [self fetch:[BSUser class] atEndpoint:@"users.json" withParameters:params withBlock:block];
+    [self fetchResources:[BSUser class] atEndpoint:@"users.json" withParameters:params withBlock:block];
 }
 
 - (void)fetchRepositoriesAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block
 {
     NSDictionary *params = [self generatePaginationParametersForPage:page andPerPage:perPage];
-    [self fetch:[BSRepository class] atEndpoint:@"repositories.json" withParameters:params withBlock:block];
+    [self fetchResources:[BSRepository class] atEndpoint:@"repositories.json" withParameters:params withBlock:block];
 }
 
 - (void)fetchServerEnvironmentsForRepository:(BSRepository*)repo page:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block
 {
     NSDictionary *params = [self generatePaginationParametersForPage:page andPerPage:perPage];
     NSString *endpoint = [[NSString alloc] initWithFormat:@"%d/server_environments.json", repo.objectID];
-    [self fetch:[BSServerEnvironment class] atEndpoint:endpoint withParameters:params withBlock:block];
+    [self fetchResources:[BSServerEnvironment class] atEndpoint:endpoint withParameters:params withBlock:block];
 }
 
 - (void)fetchReleasesAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block
 {
     NSDictionary *params = [self generatePaginationParametersForPage:page andPerPage:perPage];
-    [self fetch:[BSRelease class] atEndpoint:@"releases.json" withParameters:params withBlock:block];
+    [self fetchResources:[BSRelease class] atEndpoint:@"releases.json" withParameters:params withBlock:block];
 }
 
 - (void)fetchReleasesForRepisotry:(BSRepository*)repo AtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block
 {
     NSDictionary *params = [self generatePaginationParametersForPage:page andPerPage:perPage];
     NSString *endpoint = [[NSString alloc] initWithFormat:@"%d/releases.json", repo.objectID];
-    [self fetch:[BSRelease class] atEndpoint:endpoint withParameters:params withBlock:block];
+    [self fetchResources:[BSRelease class] atEndpoint:endpoint withParameters:params withBlock:block];
 }
 
 #pragma mark - Private
 
-- (void)fetch:(Class)bsKlass atEndpoint:(NSString*)endpoint withParameters:(NSDictionary*)params withBlock:(fetchBlock)block
+- (void)fetchResource:(Class)bsKlass atEndpoint:(NSString*)endpoint withParams:(NSDictionary*)params withBlock:(fetchSingleEntityBlock)block
+{
+    [self getPath:endpoint parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSDictionary *attributes = JSON[[bsKlass toString]];
+        BSObject *resource = [[bsKlass alloc] initWithDictionary:attributes];
+        
+        if (block) {
+            block(resource, nil);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
+- (void)fetchResources:(Class)bsKlass atEndpoint:(NSString*)endpoint withParameters:(NSDictionary*)params withBlock:(fetchBlock)block
 {
     [self getPath:endpoint parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
     
@@ -103,6 +127,7 @@
             block(nil, error);
         }
     }];
+    
 }
 
 - (NSDictionary*)generatePaginationParametersForPage:(NSUInteger)page andPerPage:(NSUInteger)perPage
