@@ -38,9 +38,6 @@ typedef enum BSReleaseState : NSUInteger {
 @property (nonatomic, copy) NSString *environmentRevision;
 @property (nonatomic, copy) NSDate  *deplayedAt;
 @property (nonatomic, copy) NSDate  *retriedAt;
-@property (nonatomic, strong, readonly) BSUser *user;
-@property (nonatomic, strong, readonly) BSRepository *repository;
-@property (nonatomic, strong, readonly) BSServerEnvironment *serverEnvironment;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 
