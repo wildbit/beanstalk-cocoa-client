@@ -21,6 +21,7 @@
 		83567A6B175080E600E08054 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 83567A69175080E600E08054 /* UIColor+Hex.m */; };
 		837D15301750020F00760EFE /* BSRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 837D152F1750020F00760EFE /* BSRepository.m */; };
 		837D15311750020F00760EFE /* BSRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 837D152F1750020F00760EFE /* BSRepository.m */; };
+		83AB16A5175EC97B0062AF37 /* UIColor+Hex.h in Headers */ = {isa = PBXBuildFile; fileRef = 83567A68175080E600E08054 /* UIColor+Hex.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83B7933A17483CE3002B5077 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B7930317483CE3002B5077 /* AFHTTPClient.m */; };
 		83B7933B17483CE3002B5077 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B7930317483CE3002B5077 /* AFHTTPClient.m */; };
 		83B7933C17483CE3002B5077 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B7930517483CE3002B5077 /* AFHTTPRequestOperation.m */; };
@@ -431,6 +432,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		83AB16A4175EC9740062AF37 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83AB16A5175EC97B0062AF37 /* UIColor+Hex.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		83D670D0174839A100A1E52D /* BeanstalkCocoaClient */ = {
 			isa = PBXNativeTarget;
@@ -441,6 +453,7 @@
 				83D670CE174839A100A1E52D /* Frameworks */,
 				83D670CF174839A100A1E52D /* CopyFiles */,
 				23A8054EA1EE4F88B8CDC1B8 /* Copy Pods Resources */,
+				83AB16A4175EC9740062AF37 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -476,7 +489,7 @@
 		83D670C9174839A100A1E52D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = WB;
+				CLASSPREFIX = BS;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Wildbit;
 			};
