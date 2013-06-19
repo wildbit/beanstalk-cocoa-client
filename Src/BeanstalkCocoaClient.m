@@ -49,6 +49,19 @@
 
 #pragma mark - API
 
+- (void)createReleaseFor:(BSRepository*)repository withParams:(NSDictionary*)parameters withBlock:(createReleaseBlock)block
+{
+    NSString *urlEndpoint = [[NSString alloc] initWithFormat:@"%d/releases.json", repository.objectID];
+
+    [self postPath:urlEndpoint parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSDictionary *attributes = JSON[[BSRelease toString]];
+        BSRelease *release = [[BSRelease alloc] initWithDictionary:attributes];
+        block(release, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        block(nil, error);
+    }];
+}
+
 - (void)fetchUser:(NSUInteger)userId withBlock:(fetchSingleEntityBlock)block
 {
     NSString *endpoint = [[NSString alloc] initWithFormat:@"users/%d.json", userId];

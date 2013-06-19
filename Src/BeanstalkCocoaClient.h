@@ -14,10 +14,27 @@
 
 typedef void (^fetchBlock)(NSArray*, NSError*);
 typedef void (^fetchSingleEntityBlock)(id, NSError*);
+typedef void (^createReleaseBlock)(BSRelease*, NSError*);
 
 @interface BeanstalkCocoaClient : AFHTTPClient
 
 + (BeanstalkCocoaClient*)sharedClient:(NSString*)subdomain;
+
+/** Creates a release via Beanstalk API
+
+ @param repository BSRepository for the release
+ @param parameters A dictionary of strings associated with the release. Use the following keys:
+
+ - comment:  text that will be displayed in the release notes
+ - environment_id: environment you want to deploy to
+ - revision: what revision of the server to deploy
+ - deploy_from_scratch: deploy from the first revision rather then doing incremental deployment
+ - do_not_notify: do not trigger email notification for this deployment
+
+ @param block A block supplies a BSRelease object of the response and a NSError object, nil if the response was successful
+
+ */
+- (void)createReleaseFor:(BSRepository*)repository withParams:(NSDictionary*)parameters withBlock:(createReleaseBlock)block;
 
 - (void)fetchUser:(NSUInteger)userId withBlock:(fetchSingleEntityBlock)block;
 - (void)fetchUsersAtPage:(NSUInteger)page perPage:(NSUInteger)perPage withBlock:(fetchBlock)block;

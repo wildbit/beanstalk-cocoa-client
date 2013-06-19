@@ -35,9 +35,9 @@
         STAssertNil(error, @"Error occurred: %@", error);
 
         for (BSRepository *repo in repos) {
-            STAssertNotNil(repo.name,      @"name was nil");
-            STAssertNotNil(repo.title,     @"title was nil");
-            STAssertNotNil(repo.url,       @"url was nil");
+            STAssertNotNil(repo.name, @"name was nil");
+            STAssertNotNil(repo.title, @"title was nil");
+            STAssertNotNil(repo.url, @"url was nil");
             STAssertTrue(repo.type > 0, @"type wasn't sety");
             STAssertNotNil(repo.createdAt, @"createdAt was nil");
             STAssertNotNil(repo.updatedAt, @"updatedAt was nil");
@@ -56,7 +56,7 @@
 - (void)testFetchUsers
 {
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
+
     [self.client fetchUsersAtPage:1 perPage:1 withBlock:^(NSArray *users, NSError *error) {
         STAssertNil(error, @"Error occurred: %@", error);
         
@@ -82,7 +82,8 @@
 - (void)testFetchServerEnvironmentsForRepository
 {
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
+
+    // TODO don't hardcode these values
     BSRepository *repo = [[BSRepository alloc] init];
     repo.objectID = 27;
     
@@ -135,7 +136,8 @@
 - (void)testFetchReleasesForRepository
 {
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
+
+    // TODO don't hardcode these values
     BSRepository *repo = [[BSRepository alloc] init];
     repo.objectID = 27;
     
@@ -169,6 +171,30 @@
         STAssertNotNil(user, @"User returned was nil");
         STAssertNotNil(user.name, @"Name was blank");
 
+        dispatch_semaphore_signal(sema);
+    }];
+
+    while (dispatch_semaphore_wait(sema, DISPATCH_TIME_NOW))
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+}
+
+
+- (void)testCreateRelease
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+
+    NSDictionary *params = @{@"comment" : @"New Deployment from API", @"environment_id" : @(20)};
+
+    // TODO don't hardcode these values
+    BSRepository *repo = [[BSRepository alloc] init];
+    repo.objectID = 27;
+
+    [self.client createReleaseFor:repo withParams:params withBlock:^(BSRelease *release, NSError *error) {
+        STAssertNil(error, @"Error occurred when creating release");
+        STAssertNotNil(release, @"Release was incorrectly parsed.");
+        STAssertEquals(release.state, Waiting, @"Release was not in Waiting state");
+
+        // Wait for block to finish
         dispatch_semaphore_signal(sema);
     }];
 
