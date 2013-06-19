@@ -18,7 +18,7 @@
 - (NSDateFormatter*)railsDateFormat
 {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"];
+    [dateFormat setDateFormat:@"yyyy/MM/dd HH:mm:ss Z"];
     return dateFormat;
 }
 
