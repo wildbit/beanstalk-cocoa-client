@@ -9,7 +9,7 @@
 #import "BeanstalkCocoaClient.h"
 #import "AFNetworking.h"
 
-#define WB_HOST             @"http://%@.beanstalk.dev/api"
+#define WB_HOST             @"http://%@.beanstalkapp.com/api"
 #define WB_FORMAT           @"json"
 #define WB_DEFAULT_PAGE     1
 #define WB_DEFAULT_PER_PAGE 20
